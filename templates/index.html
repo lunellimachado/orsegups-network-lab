@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>ORSEGUPS Network Lab</title>
+
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background:#f4f4f4;
+            margin:0;
+            padding:40px;
+        }
+
+        .container{
+            max-width:800px;
+            margin:auto;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 15px rgba(0,0,0,0.15);
+        }
+
+        h1{
+            color:#003366;
+        }
+
+        label{
+            display:block;
+            margin-top:15px;
+            font-weight:bold;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;
+        }
+
+        button{
+            margin-top:20px;
+            width:100%;
+            padding:12px;
+            border:none;
+            border-radius:5px;
+            background:#0066cc;
+            color:white;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#004c99;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>ORSEGUPS Network Lab</h1>
+
+    <p>Automação de Configuração Cisco</p>
+
+    <label>Hostname</label>
+    <input type="text" placeholder="SW-ORSEGUPS-01">
+
+    <label>VLAN 10 - Usuários</label>
+    <input type="text" placeholder="10">
+
+    <label>VLAN 20 - Telefonia</label>
+    <input type="text" placeholder="20">
+
+    <label>VLAN 50 - Visitantes</label>
+    <input type="text" placeholder="50">
+
+    <button>Aplicar Configuração</button>
+
+</div>
+
+</body>
+</html>
