@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -25,6 +26,11 @@
             color:#003366;
         }
 
+        h2{
+            color:#003366;
+            margin-top:30px;
+        }
+
         label{
             display:block;
             margin-top:15px;
@@ -37,6 +43,7 @@
             margin-top:5px;
             border:1px solid #ccc;
             border-radius:5px;
+            box-sizing:border-box;
         }
 
         button{
@@ -54,6 +61,12 @@
         button:hover{
             background:#004c99;
         }
+
+        .secao{
+            margin-top:30px;
+            padding-top:20px;
+            border-top:1px solid #ddd;
+        }
     </style>
 </head>
 
@@ -67,6 +80,8 @@
 
     <form method="POST" action="/aplicar">
 
+        <h2>Configuração do Switch</h2>
+
         <label>Hostname</label>
         <input name="hostname" type="text" placeholder="SW-ORSEGUPS-01">
 
@@ -79,7 +94,30 @@
         <label>VLAN 50 - Visitantes</label>
         <input name="vlan50" type="text" placeholder="50">
 
-        <button type="submit">Aplicar Configuração</button>
+
+        <div class="secao">
+
+            <h2>Conexão SSH</h2>
+
+            <label>IP do Switch</label>
+            <input name="ip_switch" type="text" placeholder="192.168.1.10">
+
+            <label>Usuário</label>
+            <input name="usuario" type="text" placeholder="admin">
+
+            <label>Senha</label>
+            <input name="senha" type="password" placeholder="********">
+
+        </div>
+
+
+        <button type="submit">
+            Aplicar Configuração
+        </button>
+
+        <button formaction="/download" formmethod="POST">
+            Baixar Configuração
+        </button>
 
     </form>
 
