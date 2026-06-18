@@ -1,0 +1,19 @@
+! Backup simulado - Laboratório ORSEGUPS
+! Hostname: SW-FLORIPA-01
+! Data/Hora: 20260617_224511
+
+version 15.2
+hostname SW-FLORIPA-01
+
+!
+! Configurações aplicadas no laboratório:
+hostname SW-FLORIPA-01
+vlan 100
+name VLAN_DADOS
+exit
+vlan 200
+name VLAN_VOZ
+exit
+vlan 500
+name VLAN_SEGURANCA
+exit

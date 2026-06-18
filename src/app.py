@@ -1,6 +1,9 @@
 from cisco_automation import (
     gerar_configuracao_cisco,
-    testar_conexao
+    testar_conexao,
+    aplicar_configuracao_cisco,
+    gerar_backup_lab,
+    validar_configuracao
 )
 
 from flask import Flask, render_template, request, Response
@@ -32,41 +35,70 @@ def aplicar():
         vlan50
     )
 
-    status, resultado = testar_conexao(
+    arquivo_backup_lab = gerar_backup_lab(hostname, comandos)
+
+    validacoes = validar_configuracao(
+        hostname,
+        vlan10,
+        vlan20,
+        vlan50
+    )
+
+    validacoes_html = "<br>".join(validacoes)
+
+    status_conexao, resultado_conexao = testar_conexao(
         ip_switch,
         usuario,
         senha
     )
 
-    if status:
-        conexao_html = f"""
-        <h2 style="color:green;">
-            Conexão SSH OK
-        </h2>
+    if status_conexao:
+        status_aplicacao, resultado_aplicacao, arquivo_backup = aplicar_configuracao_cisco(
+            ip_switch,
+            usuario,
+            senha,
+            comandos
+        )
 
-        <p>Equipamento respondeu:</p>
+        if status_aplicacao:
+            conexao_html = f"""
+            <h2 style="color:green;">Configuração Aplicada com Sucesso</h2>
 
-        <div style="
-            background:#e8ffe8;
-            padding:10px;
-            border-radius:5px;
-        ">
-            {resultado}
-        </div>
-        """
+            <p>Equipamento respondeu:</p>
+            <div style="background:#e8ffe8; padding:10px; border-radius:5px;">
+                {resultado_conexao}
+            </div>
+
+            <p>Backup real gerado em:</p>
+            <div style="background:#e8ffe8; padding:10px; border-radius:5px;">
+                {arquivo_backup}
+            </div>
+
+            <h3>Resultado da Aplicação</h3>
+            <pre style="background:#f4f4f4; padding:10px; border-radius:5px;">
+{resultado_aplicacao}
+            </pre>
+            """
+        else:
+            conexao_html = f"""
+            <h2 style="color:red;">Falha ao Aplicar Configuração</h2>
+
+            <div style="background:#ffe8e8; padding:10px; border-radius:5px;">
+                {resultado_aplicacao}
+            </div>
+            """
     else:
         conexao_html = f"""
-        <h2 style="color:red;">
-            Falha na Conexão SSH
-        </h2>
+        <h2 style="color:red;">Falha na Conexão SSH</h2>
 
-        <div style="
-            background:#ffe8e8;
-            padding:10px;
-            border-radius:5px;
-        ">
-            {resultado}
+        <div style="background:#ffe8e8; padding:10px; border-radius:5px;">
+            {resultado_conexao}
         </div>
+
+        <p>
+            Como não há switch real disponível, foi gerado um backup de laboratório
+            para evidenciar o fluxo de automação.
+        </p>
         """
 
     comandos_html = "<br>".join(comandos)
@@ -80,6 +112,26 @@ def aplicar():
     <p>VLAN 50: {vlan50}</p>
 
     {conexao_html}
+
+    <h2>Backup Laboratório</h2>
+    <div style="
+    background:#eef5ff;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:20px;
+    ">
+    Arquivo gerado: {arquivo_backup_lab}
+    </div>
+
+    <h2>Validação</h2>
+    <div style="
+    background:#e8ffe8;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:20px;
+    ">
+    {validacoes_html}
+    </div>
 
     <h2>Comandos Cisco Gerados</h2>
 
