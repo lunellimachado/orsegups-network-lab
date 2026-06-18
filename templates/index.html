@@ -65,19 +65,23 @@
 
     <p>Automação de Configuração Cisco</p>
 
-    <label>Hostname</label>
-    <input type="text" placeholder="SW-ORSEGUPS-01">
+    <form method="POST" action="/aplicar">
 
-    <label>VLAN 10 - Usuários</label>
-    <input type="text" placeholder="10">
+        <label>Hostname</label>
+        <input name="hostname" type="text" placeholder="SW-ORSEGUPS-01">
 
-    <label>VLAN 20 - Telefonia</label>
-    <input type="text" placeholder="20">
+        <label>VLAN 10 - Usuários</label>
+        <input name="vlan10" type="text" placeholder="10">
 
-    <label>VLAN 50 - Visitantes</label>
-    <input type="text" placeholder="50">
+        <label>VLAN 20 - Telefonia</label>
+        <input name="vlan20" type="text" placeholder="20">
 
-    <button>Aplicar Configuração</button>
+        <label>VLAN 50 - Visitantes</label>
+        <input name="vlan50" type="text" placeholder="50">
+
+        <button type="submit">Aplicar Configuração</button>
+
+    </form>
 
 </div>
 
