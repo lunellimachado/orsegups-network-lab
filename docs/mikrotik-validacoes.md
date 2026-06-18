@@ -82,3 +82,23 @@ Validações previstas:
 ## Conclusão
 
 A configuração atende aos requisitos mínimos de conectividade, segurança e gerenciamento definidos para o ambiente proposto.
+
+
+## VPN Site-to-Site MikroTik
+
+Validações previstas:
+
+- Peer IPsec criado para comunicação com a matriz.
+- Proposal IPsec configurada com AES-256 e SHA256.
+- Policy criada entre a rede da filial `192.168.100.0/24` e a rede da matriz `192.168.200.0/24`.
+- Regra NAT bypass criada para impedir masquerade no tráfego da VPN.
+- Chave pré-compartilhada definida para autenticação do túnel.
+
+Comandos de validação:
+
+```mikrotik
+/ip ipsec peer print
+/ip ipsec policy print
+/ip ipsec active-peers print
+/ip ipsec installed-sa print
+/ip firewall nat print
